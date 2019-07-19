@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :abilities
+  get 'sessions/new'
+  resources :faction_keywords
+  resources :keywords
+  resources :models
+  resources :units
+  resources :users
+  resources :wargear_options
+  resources :weapons
 end

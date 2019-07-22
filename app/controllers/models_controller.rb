@@ -41,7 +41,7 @@ class ModelsController < ApplicationController
       :name,
       :movement,
       :weapon_skill,
-      :ballistic_skill,
+      :w,
       :strength,
       :toughness,
       :wounds,

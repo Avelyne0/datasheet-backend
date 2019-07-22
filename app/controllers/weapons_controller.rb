@@ -4,31 +4,31 @@ class WeaponsController < ApplicationController
 
   def index
     @weapons = Weapon.all
+    render json: @weapons , except: [:created_at, :updated_at]
+  end
+
+  def show
+    render json: weapon, except: [:created_at, :updated_at]
   end
 
   def new
     @weapon = Weapon.new
   end
 
+  def edit; end
+
   def create
     weapon = Weapon.create weapon_params
-    redirect_to new_weapon_path
-  end
-
-  def edit
-  end
-
-  def show
+    render json: weapon, except: [:created_at, :updated_at]
   end
 
   def update
     @weapon.update weapon_params
-    redirect_to weapon_path(@weapon)
+    render json: weapon, except: [:created_at, :updated_at]
   end
 
   def destroy
     @weapon.destroy
-    redirect_to weapons_path
   end
 
   private

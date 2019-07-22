@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+
+  root 'welcome#index'
+
   resources :abilities
-  get 'sessions/new'
   resources :faction_keywords
   resources :keywords
   resources :models

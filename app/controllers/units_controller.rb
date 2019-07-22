@@ -4,9 +4,12 @@ class UnitsController < ApplicationController
 
   def index
     @units = Unit.all
+    render json: @units , except: [:created_at, :updated_at]
   end
 
-  def show; end
+  def show
+    render json: unit, except: [:created_at, :updated_at]
+  end
 
   def new
     @unit = Unit.new
@@ -16,17 +19,16 @@ class UnitsController < ApplicationController
 
   def create
     unit = Unit.create unit_params
-    redirect_to unit
+    render json: unit, except: [:created_at, :updated_at]
   end
 
   def update
     @unit.update unit_params
-    redirect_to unit_path(@unit)
+    render json: unit, except: [:created_at, :updated_at]
   end
 
   def destroy
     @unit.destroy
-    redirect_to units_path
   end
 
   private

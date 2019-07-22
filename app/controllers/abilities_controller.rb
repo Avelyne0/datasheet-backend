@@ -3,10 +3,14 @@ class AbilitiesController < ApplicationController
   before_action :find_ability, only: %i[show edit update destroy]
 
   def index
-    @abilities = Ability.all
+    @abilities  = Ability.all
+    render json: @abilities , except: [:created_at, :updated_at]
   end
 
-  def show; end
+  def show
+    ability = Ability.find_by_id params[:id]
+    render json: ability, except: [:created_at, :updated_at]
+  end
 
   def new
     @ability = Ability.new
@@ -16,17 +20,16 @@ class AbilitiesController < ApplicationController
 
   def create
     ability = Ability.create ability_params
-    redirect_to new_ability_path
+    render json: ability, except: [:created_at, :updated_at]
   end
 
   def update
     @ability.update ability_params
-    redirect_to ability_path(@ability)
+    render json: ability, except: [:created_at, :updated_at]
   end
 
   def destroy
     @ability.destroy
-    redirect_to abilities_path
   end
 
   private

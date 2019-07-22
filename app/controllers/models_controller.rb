@@ -3,9 +3,12 @@ class ModelsController < ApplicationController
 
   def index
     @models = Model.all
+    render json: @models , except: [:created_at, :updated_at]
   end
 
-  def show; end
+  def show
+    render json: model, except: [:created_at, :updated_at]
+  end
 
   def new
     @model = Model.new
@@ -15,17 +18,16 @@ class ModelsController < ApplicationController
 
   def create
     model = Model.create model_params
-    redirect_to model
+    render json: model, except: [:created_at, :updated_at]
   end
 
   def update
     @model.update model_params
-    redirect_to model_path(@model)
+    render json: model, except: [:created_at, :updated_at]
   end
 
   def destroy
     @model.destroy
-    redirect_to models_path
   end
 
   private

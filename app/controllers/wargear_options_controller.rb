@@ -4,9 +4,12 @@ class WargearOptionsController < ApplicationController
 
   def index
     @wargear_options = WargearOption.all
+    render json: @wargear_options , except: [:created_at, :updated_at]
   end
 
-  def show; end
+  def show
+    render json: wargear_option, except: [:created_at, :updated_at]
+  end
 
   def new
     @wargear_option = WargearOption.new
@@ -16,17 +19,16 @@ class WargearOptionsController < ApplicationController
 
   def create
     wargear_option = WargearOption.create wargear_option_params
-    redirect_to wargear_option
+    render json: wargear_option, except: [:created_at, :updated_at]
   end
 
   def update
     @wargear_option.update wargear_option_params
-    redirect_to wargear_option_path(@wargear_option)
+    render json: wargear_option, except: [:created_at, :updated_at]
   end
 
   def destroy
     @wargear_option.destroy
-    redirect_to wargear_options_path
   end
 
   private
@@ -36,7 +38,6 @@ class WargearOptionsController < ApplicationController
   end
 
   def wargear_option_params
-    params.require(:wargear_option).permit(:option, :model_ids[], :unit_ids []
-      )
+    params.require(:wargear_option).permit(:option, :model_ids[], :unit_ids [])
   end
 end

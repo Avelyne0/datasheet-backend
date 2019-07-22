@@ -4,9 +4,12 @@ class KeywordsController < ApplicationController
 
   def index
     @keywords = Keyword.all
+    render json: @keywords , except: [:created_at, :updated_at]
   end
 
-  def show; end
+  def show
+    render json: keyword, except: [:created_at, :updated_at]
+  end
 
   def new
     @keyword = Keyword.new
@@ -16,17 +19,16 @@ class KeywordsController < ApplicationController
 
   def create
     keyword = Keyword.create keyword_params
-    redirect_to new_keyword_path
+    render json: keyword, except: [:created_at, :updated_at]
   end
 
   def update
     @keyword.update keyword_params
-    redirect_to keyword_path(@keyword)
+    render json: keyword, except: [:created_at, :updated_at]
   end
 
   def destroy
     @keyword.destroy
-    redirect_to keywords_path
   end
 
   private

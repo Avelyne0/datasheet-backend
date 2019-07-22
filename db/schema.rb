@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_07_19_152555) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "abilities", force: :cascade do |t|
     t.string "name"
     t.string "content"
@@ -95,9 +98,6 @@ ActiveRecord::Schema.define(version: 2019_07_19_152555) do
     t.text "name"
     t.index ["user_id"], name: "index_units_on_user_id"
   end
-
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'serial' for column 'id'
 
   create_table "wargear_options", force: :cascade do |t|
     t.string "option"

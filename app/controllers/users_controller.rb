@@ -2,11 +2,17 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
+    users = User.all
+    render json: users, except: [:email, :password_digest, :updated_at, :created_at]
   end
 
   def create
     @user = User.create user_params
+    if @user.valid?
+      render json: @user, except: [:email, :password_digest, :updated_at, :created_at]
+    else
+      render :json => { :errors => @users.errors.full_messages }
+    end
   end
 
   def new
@@ -17,11 +23,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    render json: @user, except: [:email, :password_digest, :updated_at, :created_at]
   end
 
   def update
     @user.update user_params
-    redirect_to user_path(@user)
+    render json: @user, except: [:email, :password_digest, :updated_at, :created_at]
   end
 
   def destroy

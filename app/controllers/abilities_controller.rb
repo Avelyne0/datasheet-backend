@@ -39,6 +39,6 @@ class AbilitiesController < ApplicationController
   end
 
   def ability_params
-    params.require(:ability).permit(:name, :content, model_ids:[])
+    params.require(:ability).permit(:name, :content, :user_id, model_ids:[])
   end
 end

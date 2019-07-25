@@ -1,46 +1,22 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :verify_authenticity_token, only: [:create]
+ 
   def index
-    users = User.all
-    render json: users, except: [:email, :password_digest, :updated_at, :created_at]
+    @users = User.all
+    render json: @users , except: [:created_at, :updated_at]
   end
 
   def create
-    @user = User.create user_params
+    @user = User.create(user_params)
     if @user.valid?
-      render json: @user, except: [:email, :password_digest, :updated_at, :created_at]
+      render json: { user: UserSerializer.new(@user) }, status: :created
     else
-      render :json => { :errors => @users.errors.full_messages }
+      render json: { error: 'failed to create user' }, status: :not_acceptable
     end
   end
-
-  def new
-    @user = User.new
-  end
-
-  def edit
-  end
-
-  def show
-    render json: @user, except: [:email, :password_digest, :updated_at, :created_at]
-  end
-
-  def update
-    @user.update user_params
-    render json: @user, except: [:email, :password_digest, :updated_at, :created_at]
-  end
-
-  def destroy
-  end
-
+ 
   private
-
-  def find_user
-    @user = User.find params[:id]
-  end
-
   def user_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:username, :password)
   end
 end

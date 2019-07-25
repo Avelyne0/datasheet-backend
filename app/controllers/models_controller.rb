@@ -49,6 +49,7 @@ class ModelsController < ApplicationController
       :leadership,
       :armour_save,
       :points,
+      :user_id,
       ability_ids:[],
       abilities_attributes:[:name],
       keyword_ids:[],

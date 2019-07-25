@@ -1,4 +1,7 @@
 class Model < ApplicationRecord
+
+  belongs_to :user
+
   has_many :model_abilities, dependent: :destroy
   has_many :abilities, through: :model_abilities
 

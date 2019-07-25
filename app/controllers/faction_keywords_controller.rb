@@ -38,7 +38,7 @@ def find_faction_keyword
 end
 
 def faction_keyword_params
-  params.require(:faction_keyword).permit(:name, :unit_ids [])
+  params.require(:faction_keyword).permit(:name, :user_id, :unit_ids [])
 end
 end
 

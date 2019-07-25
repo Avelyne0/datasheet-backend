@@ -1,4 +1,7 @@
 class Unit < ApplicationRecord
+
+  belongs_to :user
+
   has_many :unit_models, dependent: :destroy
   has_many :models, through: :unit_models
 

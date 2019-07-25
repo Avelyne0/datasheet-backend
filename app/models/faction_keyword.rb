@@ -1,4 +1,7 @@
 class FactionKeyword < ApplicationRecord
+
+  belongs_to :user
+
   has_many :unit_faction_keywords, dependent: :destroy
   has_many :units, through: :unit_faction_keywords
 

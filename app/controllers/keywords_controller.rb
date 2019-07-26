@@ -2,34 +2,40 @@
 class KeywordsController < ApplicationController
   before_action :find_keyword, only: %i[show edit update destroy]
 
+  def create
+    keyword = Keyword.create keyword_params
+    keyword.user = @current_user
+    if keyword.valid?
+        keyword.save
+        render json: keyword, status: :created
+    else
+        render json: { errors: keyword.errors.full_messages }, status: :not_accepted
+    end
+  end
+
   def index
-    @keywords = Keyword.all
-    render json: @keywords , except: [:created_at, :updated_at]
+-    render json: Keyword.all
   end
 
   def show
+    keyword = Keyword.find_by_id params[:id]
     render json: keyword, except: [:created_at, :updated_at]
   end
 
-  def new
-    @keyword = Keyword.new
-  end
+  # def new
+  #   @keyword = Keyword.new
+  # end
 
-  def edit; end
+  # def edit; end
 
-  def create
-    keyword = Keyword.create keyword_params
-    render json: keyword, except: [:created_at, :updated_at]
-  end
+  # def update
+  #   @keyword.update keyword_params
+  #   render json: keyword, except: [:created_at, :updated_at]
+  # end
 
-  def update
-    @keyword.update keyword_params
-    render json: keyword, except: [:created_at, :updated_at]
-  end
-
-  def destroy
-    @keyword.destroy
-  end
+  # def destroy
+  #   @keyword.destroy
+  # end
 
   private
 

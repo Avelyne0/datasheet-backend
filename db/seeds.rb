@@ -14,7 +14,7 @@ DatabaseCleaner.strategy = :truncation
 DatabaseCleaner.clean
 
 users = User.create([
-  {username: 'Avelyne', password: 'password'}
+  {email: 'avelyne@me.com', password: 'password'}
 ])
 weapons = Weapon.create([ 
   { weapon_name: 'Arc Pistol', weapon_range: 12, weapon_type: 'Pistol 1', weapon_strength: 6, armour_piercing: '-1', weapon_damage: 1, weapon_ability: 'When attacking a <VEHICLE>, this weapon has a Damage of D3', user_id: 1},

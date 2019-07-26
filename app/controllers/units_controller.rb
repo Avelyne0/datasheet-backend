@@ -2,34 +2,40 @@
 class UnitsController < ApplicationController
   before_action :find_unit, only: %i[show edit update destroy]
 
+  def create
+    unit = Unit.create unit_params
+    unit.user = @current_user
+    if unit.valid?
+        unit.save
+        render json: unit, status: :created
+    else
+        render json: { errors: unit.errors.full_messages }, status: :not_accepted
+    end
+  end
+
   def index
-    @units = Unit.all
-    render json: @units , except: [:created_at, :updated_at]
+-    render json: Unit.all
   end
 
   def show
+    unit = Unit.find_by_id params[:id]
     render json: unit, except: [:created_at, :updated_at]
   end
 
-  def new
-    @unit = Unit.new
-  end
+  # def new
+  #   @unit = Unit.new
+  # end
 
-  def edit; end
+  # def edit; end
 
-  def create
-    unit = Unit.create unit_params
-    render json: unit, except: [:created_at, :updated_at]
-  end
+  # def update
+  #   @unit.update unit_params
+  #   render json: unit, except: [:created_at, :updated_at]
+  # end
 
-  def update
-    @unit.update unit_params
-    render json: unit, except: [:created_at, :updated_at]
-  end
-
-  def destroy
-    @unit.destroy
-  end
+  # def destroy
+  #   @unit.destroy
+  # end
 
   private
 
@@ -46,8 +52,8 @@ class UnitsController < ApplicationController
             models_attributes:[:name],
             ability_ids:[],
             abilities_attributes:[:name],
-            faction_keyword_ids:[],
-            faction_keywords_attributes:[:name],
+            faction_unit_ids:[],
+            faction_units_attributes:[:name],
             wargear_option_ids:[],
             wargear_options_attributes:[:option])
   end

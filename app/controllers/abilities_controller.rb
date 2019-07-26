@@ -2,9 +2,19 @@
 class AbilitiesController < ApplicationController
   before_action :find_ability, only: %i[show edit update destroy]
 
+  def create
+    ability = Ability.create ability_params
+    ability.user = @current_user
+    if ability.valid?
+        ability.save
+        render json: ability, status: :created
+    else
+        render json: { errors: ability.errors.full_messages }, status: :not_accepted
+    end
+  end
+
   def index
-    @abilities  = Ability.all
-    render json: @abilities , except: [:created_at, :updated_at]
+-    render json: Ability.all
   end
 
   def show
@@ -12,25 +22,20 @@ class AbilitiesController < ApplicationController
     render json: ability, except: [:created_at, :updated_at]
   end
 
-  def new
-    @ability = Ability.new
-  end
+  # def new
+  #   @ability = Ability.new
+  # end
 
-  def edit; end
+  # def edit; end
 
-  def create
-    ability = Ability.create ability_params
-    render json: ability, except: [:created_at, :updated_at]
-  end
+  # def update
+  #   @ability.update ability_params
+  #   render json: ability, except: [:created_at, :updated_at]
+  # end
 
-  def update
-    @ability.update ability_params
-    render json: ability, except: [:created_at, :updated_at]
-  end
-
-  def destroy
-    @ability.destroy
-  end
+  # def destroy
+  #   @ability.destroy
+  # end
 
   private
 

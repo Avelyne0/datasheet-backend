@@ -1,34 +1,40 @@
 class ModelsController < ApplicationController
   before_action :find_model, only: %i[show edit update destroy]
 
+  def create
+    model = Model.create model_params
+    model.user = @current_user
+    if model.valid?
+        model.save
+        render json: model, status: :created
+    else
+        render json: { errors: model.errors.full_messages }, status: :not_accepted
+    end
+  end
+
   def index
-    @models = Model.all
-    render json: @models , except: [:created_at, :updated_at]
+    render json: Model.all
   end
 
   def show
+    model = Model.find_by_id params[:id]
     render json: model, except: [:created_at, :updated_at]
   end
 
-  def new
-    @model = Model.new
-  end
+  # def new
+  #   @model = Model.new
+  # end
 
-  def edit; end
+  # def edit; end
 
-  def create
-    model = Model.create model_params
-    render json: model, except: [:created_at, :updated_at]
-  end
+  # def update
+  #   @model.update model_params
+  #   render json: model, except: [:created_at, :updated_at]
+  # end
 
-  def update
-    @model.update model_params
-    render json: model, except: [:created_at, :updated_at]
-  end
-
-  def destroy
-    @model.destroy
-  end
+  # def destroy
+  #   @model.destroy
+  # end
 
   private
 
@@ -52,8 +58,8 @@ class ModelsController < ApplicationController
       :user_id,
       ability_ids:[],
       abilities_attributes:[:name],
-      keyword_ids:[],
-      keywords_ids:[:name],
+      model_ids:[],
+      models_ids:[:name],
       wargear_option_ids:[],
       wargear_options_ids:[:option],
       weapon_ids:[],

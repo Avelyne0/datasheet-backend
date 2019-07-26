@@ -2,34 +2,40 @@
 class WargearOptionsController < ApplicationController
   before_action :find_wargear_option, only: %i[show edit update destroy]
 
+  def create
+    wargear_option = WargearOption.create wargear_option_params
+    wargear_option.user = @current_user
+    if wargear_option.valid?
+        wargear_option.save
+        render json: wargear_option, status: :created
+    else
+        render json: { errors: wargear_option.errors.full_messages }, status: :not_accepted
+    end
+  end
+
   def index
-    @wargear_options = WargearOption.all
-    render json: @wargear_options , except: [:created_at, :updated_at]
+-    render json: WargearOption.all
   end
 
   def show
+    wargear_option = WargearOption.find_by_id params[:id]
     render json: wargear_option, except: [:created_at, :updated_at]
   end
 
-  def new
-    @wargear_option = WargearOption.new
-  end
+  # def new
+  #   @wargear_option = WargearOption.new
+  # end
 
-  def edit; end
+  # def edit; end
 
-  def create
-    wargear_option = WargearOption.create wargear_option_params
-    render json: wargear_option, except: [:created_at, :updated_at]
-  end
+  # def update
+  #   @wargear_option.update wargear_option_params
+  #   render json: wargear_option, except: [:created_at, :updated_at]
+  # end
 
-  def update
-    @wargear_option.update wargear_option_params
-    render json: wargear_option, except: [:created_at, :updated_at]
-  end
-
-  def destroy
-    @wargear_option.destroy
-  end
+  # def destroy
+  #   @wargear_option.destroy
+  # end
 
   private
 

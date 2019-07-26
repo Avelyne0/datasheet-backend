@@ -2,36 +2,42 @@
 class FactionKeywordsController < ApplicationController
   before_action :find_faction_keyword, only: %i[show edit update destroy]
 
-def index
-  @faction_keywords = FactionKeyword.all
-  render json: @faction_keywords , except: [:created_at, :updated_at]
-end
+  def create
+    faction_keyword = FactionKeyword.create faction_keyword_params
+    faction_keyword.user = @current_user
+    if faction_keyword.valid?
+        faction_keyword.save
+        render json: faction_keyword, status: :created
+    else
+        render json: { errors: faction_keyword.errors.full_messages }, status: :not_accepted
+    end
+  end
 
-def show
-  render json: faction_keyword, except: [:created_at, :updated_at]
-end
+  def index
+-    render json: FactionKeyword.all
+  end
 
-def new
-  @faction_keyword = FactionKeyword.new
-end
+  def show
+    faction_keyword = FactionKeyword.find_by_id params[:id]
+    render json: faction_keyword, except: [:created_at, :updated_at]
+  end
 
-def edit; end
+  # def new
+  #   @faction_keyword = FactionKeyword.new
+  # end
 
-def create
-  faction_keyword = FactionKeyword.create faction_keyword_params
-  render json: faction_keyword, except: [:created_at, :updated_at]
-end
+  # def edit; end
 
-def update
-  @faction_keyword.update faction_keyword_params
-  render json: faction_keyword, except: [:created_at, :updated_at]
-end
+  # def update
+  #   @faction_keyword.update faction_keyword_params
+  #   render json: faction_keyword, except: [:created_at, :updated_at]
+  # end
 
-def destroy
-  @faction_keyword.destroy
-end
+  # def destroy
+  #   @faction_keyword.destroy
+  # end
 
-private
+  private
 
 def find_faction_keyword
   @faction_keyword = FactionKeyword.find(params[:id])

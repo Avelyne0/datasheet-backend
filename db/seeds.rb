@@ -34,6 +34,11 @@ models = Model.create([
   { name: 'Vanguard Alpha', movement: 6, weapon_skill: 4, ballistic_skill: 3, strength:  3, toughness: 3, wounds: 1, attacks: 2, leadership: 7, armour_save: 4, user_id: 1}
 ])
 
+wargear_options = WargearOption.create([
+  { option: 'This model may take some stuff', model_id: 1},
+  { option: 'This unit may take some stuff', unit_id:1}
+])
+
 model_abilities = ModelAbility.create([
   { model_id: 1, ability_id: 3}
 ])

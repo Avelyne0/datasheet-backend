@@ -16,15 +16,15 @@ class Model < ApplicationRecord
   has_many :units, through: :unit_models
 
   def weapon_ids=(ids)
-    ids.each {|id| ModelWeapon.create(model: self, weapon_id: id)}
+    ids.each {|id| ModelWeapon.create(model_id: self.id, weapon_id: id)}
   end
 
   def keyword_ids=(ids)
-    ids.each {|id| ModelKeyword.create(model: self, keyword_id: id)}
+    ids.each {|id| ModelKeyword.create(model_id: self.id, keyword_id: id)}
   end
 
   def ability_ids=(ids)
-    ids.each {|id| ModelAbility.create(model: self, ability_id: id)}
+    ids.each {|id| ModelAbility.create(model_id: self.id, ability_id: id)}
   end
 
   validates :name, presence: true

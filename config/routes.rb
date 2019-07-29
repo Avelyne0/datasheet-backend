@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:create]
   post '/login', to: 'auth#create'
+  get '/validate', to: 'auth#validate'
   get '/profile', to: 'users#profile'
-  
+  get '/everything', to: 'application#everything'
 end

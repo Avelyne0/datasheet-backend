@@ -27,10 +27,10 @@ class ModelsController < ApplicationController
 
   # def edit; end
 
-  # def update
-  #   @model.update model_params
-  #   render json: model, except: [:created_at, :updated_at]
-  # end
+  def update
+    @model.update model_params
+    render json: model, except: [:created_at, :updated_at]
+  end
 
   # def destroy
   #   @model.destroy
@@ -47,7 +47,7 @@ class ModelsController < ApplicationController
       :name,
       :movement,
       :weapon_skill,
-      :w,
+      :ballistic_skill,
       :strength,
       :toughness,
       :wounds,
@@ -57,14 +57,10 @@ class ModelsController < ApplicationController
       :points,
       :user_id,
       ability_ids:[],
-      abilities_attributes:[:name],
-      model_ids:[],
-      models_ids:[:name],
       wargear_option_ids:[],
-      wargear_options_ids:[:option],
       weapon_ids:[],
-      weapons_attributes:[:weapon_name],
-      unit_ids:[],
-      units_ids:[:name])
+      keyword_ids:[],
+      unit_ids:[]
+    )
   end
 end

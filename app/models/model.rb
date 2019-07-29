@@ -15,11 +15,16 @@ class Model < ApplicationRecord
   has_many :unit_models, dependent: :destroy
   has_many :units, through: :unit_models
 
-  def weapons_attributes=(weapon_attributes)
-    weapon_attributes.values.each do |weapon_attribute|
-      weapon = Weapon.find_or_create_by(weapon_attribute)
-      self.model_weapons.build(weapon: weapon)
-    end
+  def weapon_ids=(ids)
+    ids.each {|id| ModelWeapon.create(model: self, weapon_id: id)}
+  end
+
+  def keyword_ids=(ids)
+    ids.each {|id| ModelKeyword.create(model: self, keyword_id: id)}
+  end
+
+  def ability_ids=(ids)
+    ids.each {|id| ModelAbility.create(model: self, ability_id: id)}
   end
 
   validates :name, presence: true

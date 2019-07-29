@@ -1,6 +1,18 @@
 class ApplicationController < ActionController::API
     before_action :set_current_user
-    before_action :authorize
+    before_action :authorize, except: [:everything]
+
+    def everything
+        render json: { 
+            abilities: Ability.all, 
+            faction_keywords: FactionKeyword.all, 
+            keywords: Keyword.all, 
+            models: Model.all,  
+            units: Unit.all,
+            wargear_options: WargearOption.all,
+            weapons: Weapon.all
+        }
+    end
 
     def issue_token(payload)
         JWT.encode(payload, ENV['RAILS_SECRET'])

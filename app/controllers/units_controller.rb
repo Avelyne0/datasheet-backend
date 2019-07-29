@@ -49,12 +49,8 @@ class UnitsController < ApplicationController
             :composition,
             :user_id,
             model_ids:[],
-            models_attributes:[:name],
             ability_ids:[],
-            abilities_attributes:[:name],
-            faction_unit_ids:[],
-            faction_units_attributes:[:name],
+            faction_keyword_ids:[],
             wargear_option_ids:[],
-            wargear_options_attributes:[:option])
   end
 end

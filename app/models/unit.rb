@@ -12,4 +12,16 @@ class Unit < ApplicationRecord
   has_many :abilities, through: :unit_abilities
   
   has_many :wargear_options, dependent: :destroy
+
+  def model_ids=(ids)
+    ids.each {|id| UnitModel.create(unit: self, model_id: id)}
+  end
+
+  def faction_keyword_ids=(ids)
+    ids.each {|id| UnitFactionKeyword.create(unit: self, faction_keyword_id: id)}
+  end
+
+  def ability_ids=(ids)
+    ids.each {|id| UnitAbility.create(unit: self, ability_id: id)}
+  end
 end

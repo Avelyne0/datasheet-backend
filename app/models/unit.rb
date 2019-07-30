@@ -14,14 +14,22 @@ class Unit < ApplicationRecord
   has_many :wargear_options, dependent: :destroy
 
   def model_ids=(ids)
-    ids.each {|id| UnitModel.create(unit: self, model_id: id)}
+    ids.each do |id| 
+      um = UnitModel.create(unit: self, model_id: id)
+    end
   end
 
   def faction_keyword_ids=(ids)
-    ids.each {|id| UnitFactionKeyword.create(unit: self, faction_keyword_id: id)}
+    ids.each do |id| 
+      ufk = UnitFactionKeyword.create(unit: self, faction_keyword_id: id)
+    end
   end
 
   def ability_ids=(ids)
-    ids.each {|id| UnitAbility.create(unit: self, ability_id: id)}
+    ids.each do |id| 
+      ua = UnitAbility.create(unit: self, ability_id: id)
+    end
   end
 end
+
+

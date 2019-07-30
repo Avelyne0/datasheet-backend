@@ -10,25 +10,32 @@ class Model < ApplicationRecord
 
   has_many :model_weapons, dependent: :destroy
   has_many :weapons, through: :model_weapons
-  accepts_nested_attributes_for :weapons
 
   has_many :unit_models, dependent: :destroy
   has_many :units, through: :unit_models
 
   def weapon_ids=(ids)
-    ids.each {|id| ModelWeapon.create(model_id: self.id, weapon_id: id)}
+    ids.each  do |id| 
+      mw = ModelWeapon.create(model: self, weapon_id: id)
+      # if (!mw.valid?)
+      #   byebug
+      # end
+    end
   end
 
   def keyword_ids=(ids)
-    ids.each {|id| ModelKeyword.create(model_id: self.id, keyword_id: id)}
+    ids.each do |id| 
+      mk = ModelKeyword.create(model: self, keyword_id: id)
+    end
   end
 
   def ability_ids=(ids)
-    ids.each {|id| ModelAbility.create(model_id: self.id, ability_id: id)}
+    ids.each do |id| 
+      ma = ModelAbility.create(model: self, ability_id: id)
+    end
   end
 
   validates :name, presence: true
-  validates :name, uniqueness: true
 
   has_many :wargear_options, dependent: :destroy
 end

@@ -54,7 +54,7 @@ class WeaponsController < ApplicationController
       :weapon_ability,
       :points,
       :user_id,
-      model_ids:[],
-      models_attributes:[:name])
+      model_ids:[]
+      )
   end
 end

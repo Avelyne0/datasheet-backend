@@ -35,14 +35,50 @@ models = Model.create([
 ])
 
 wargear_options = WargearOption.create([
-  { option: 'This model may take some stuff', model_id: 1},
-  { option: 'This unit may take some stuff', unit_id:1}
+  { option: 'This model may take some stuff', model_id: 1, user_id: 1},
+  { option: 'This unit may take some stuff', unit_id: 1, user_id: 1}
 ])
 
-model_abilities = ModelAbility.create([
-  { model_id: 1, ability_id: 3}
+keywords = Keyword.create([
+  { name: 'BIKER', user_id: 1},
+  { name: 'FLY', user_id: 1},
+  { name: 'VYPERS', user_id: 1},
+  { name: 'HELBRUTE', user_id: 1},
+  { name: 'DAEMON ENGINE', user_id: 1},
+  { name: 'INFANTRY', user_id: 1},
+  { name: 'VEHICLE', user_id: 1},
+  { name: 'CHARACTER', user_id: 1},
+  { name: 'PSYKER', user_id: 1},
+  { name: 'MONSTER', user_id: 1},
+  { name: 'PRIMARIS', user_id: 1},
+  { name: 'BEAST', user_id: 1},
+  { name: 'ARTILLERY', user_id: 1},
+  { name: 'CAVALRY', user_id: 1},
+  { name: 'TRANSPORT', user_id: 1},
+  { name: 'TITANIC', user_id: 1},
+  { name: 'TERMINATOR', user_id: 1},
+  { name: 'CHAOS LORD', user_id: 1},
+  { name: 'ABADDON THE DESPOILER', user_id: 1}
+  
 ])
 
-model_weapons = ModelWeapon.create([
-  { model_id: 1, weapon_id: 1}
-])
+faction_keywords = FactionKeyword.create([
+  { name: 'AELDARI', user_id: 1},
+  { name: 'ASURYANI', user_id: 1},
+  { name: 'WARHOST', user_id: 1},
+  { name: '<CRAFTWORLD>', user_id: 1},
+  { name: '<CHAPTER>', user_id: 1},
+  { name: '<LEGION>', user_id: 1},
+  { name: 'IMPERIUM', user_id: 1},
+  { name: 'CHAOS', user_id: 1},
+  { name: "T'AU EMPIRE", user_id: 1},
+  { name: 'CHAOS', user_id: 1},
+  { name: 'KHORNE', user_id: 1},
+  { name: 'SLAANESH', user_id: 1},
+  { name: 'TZEENCH', user_id: 1},
+  { name: 'NURGLE', user_id: 1},
+  { name: 'BLACK LEGION', user_id: 1},
+  { name: 'HERETIC ASTARTES', user_id: 1},
+  { name: 'ADEPTUS MECHANICUS', user_id: 1} 
+]) 
+

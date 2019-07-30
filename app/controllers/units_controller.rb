@@ -7,6 +7,10 @@ class UnitsController < ApplicationController
     unit.user = @current_user
     if unit.valid?
         unit.save
+        unit.model_ids = params[:unit][:model_ids]
+        unit.ability_ids = params[:unit][:ability_ids]
+        unit.faction_keyword_ids = params[:unit][:faction_keyword_ids]
+        unit.save
         render json: unit, status: :created
     else
         render json: { errors: unit.errors.full_messages }, status: :not_accepted
@@ -14,7 +18,7 @@ class UnitsController < ApplicationController
   end
 
   def index
--    render json: Unit.all
+    render json: Unit.all
   end
 
   def show
@@ -47,10 +51,7 @@ class UnitsController < ApplicationController
     params.require(:unit).permit(
             :name,
             :composition,
-            :user_id,
-            model_ids:[],
-            ability_ids:[],
-            faction_keyword_ids:[],
-            wargear_option_ids:[],
+            :user_id
+    )
   end
 end

@@ -6,6 +6,16 @@ class ModelsController < ApplicationController
     model.user = @current_user
     if model.valid?
         model.save
+      #   ,
+      # ability_ids:[],
+      # wargear_option_ids:[],
+      # weapon_ids:[],
+      # keyword_ids:[],
+      # unit_ids:[]
+        model.weapon_ids = params[:model][:weapon_ids]
+        model.ability_ids = params[:model][:ability_ids]
+        model.keyword_ids = params[:model][:keyword_ids]
+        model.save
         render json: model, status: :created
     else
         render json: { errors: model.errors.full_messages }, status: :not_accepted
@@ -55,12 +65,7 @@ class ModelsController < ApplicationController
       :leadership,
       :armour_save,
       :points,
-      :user_id,
-      ability_ids:[],
-      wargear_option_ids:[],
-      weapon_ids:[],
-      keyword_ids:[],
-      unit_ids:[]
+      :user_id
     )
   end
 end

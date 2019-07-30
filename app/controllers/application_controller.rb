@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::API
     before_action :set_current_user
-    before_action :authorize, except: [:everything]
+    # before_action :authorize, except: [:everything]
 
     def everything
         render json: { 
             abilities: Ability.all, 
             faction_keywords: FactionKeyword.all, 
             keywords: Keyword.all, 
-            models: Model.all,  
-            units: Unit.all,
+            models: ModelSerializer.all,  
+            units: UnitSerializer.all,
             wargear_options: WargearOption.all,
             weapons: Weapon.all
         }
@@ -40,9 +40,9 @@ class ApplicationController < ActionController::API
         !!@current_user
     end
 
-    def authorize
-        if !logged_in
-            return render json: { error: 'you must be logged in'}, status: :unauthorized
-        end
-    end
+    # def authorize
+    #     if !logged_in
+    #         return render json: { error: 'you must be logged in'}, status: :unauthorized
+    #     end
+    # end
 end

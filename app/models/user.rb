@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
   
+  validates :email, uniqueness: { case_sensitive: false }
+    
   has_many :abilities
   has_many :faction_keywords
   has_many :keywords
